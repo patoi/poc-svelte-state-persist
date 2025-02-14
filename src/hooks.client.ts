@@ -1,6 +1,7 @@
-import * as Persistor from '$lib/persistor.svelte';
+import Persistor from '$lib/persistor.svelte';
 
-Persistor.openDB(
+Persistor(
+	'localStorage',
 	() => {
 		console.log('Error DB init');
 	},
