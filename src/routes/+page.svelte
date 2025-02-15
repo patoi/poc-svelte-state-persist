@@ -1,38 +1,38 @@
 <script lang="ts">
-	import * as Persistor from '$lib/persistor.svelte';
+	import * as Persistor from '$lib/persistor'
 
 	// imported, independent state
-	import { levelState } from '$lib';
+	import { levelState } from './level.state.svelte'
 
-	const colorStateInitValue: string | undefined = undefined;
+	const colorStateInitValue: string | undefined = undefined
 
 	// component level state
-	let colorState: string | undefined = $state(colorStateInitValue);
+	let colorState: string | undefined = $state(colorStateInitValue)
 
 	// optional: preinit database key-value
 	// Persistor.put<string>('colorState', colorStateInitValue);
 
 	Persistor.get<string>('colorState', (value) => {
-		colorState = value ?? colorStateInitValue;
-	});
+		colorState = value ?? colorStateInitValue
+	})
 
 	// set state
 	const onSetState = (level?: string, color?: string) => {
-		levelState.value = level;
-		colorState = color;
+		levelState.value = level
+		colorState = color
 		// update component level state
-		Persistor.put<string>('colorState', colorState);
-	};
+		Persistor.put<string>('colorState', colorState)
+	}
 
 	// remove state record (unnecessary, e.g. deleting DB on explicit logout process is better way)
 	const onRemoveRecord = () => {
-		levelState.remove();
-	};
+		levelState.remove()
+	}
 
 	// complete deletion of the database (e.g. run on explicit logout)
 	const onDeleteDB = () => {
-		Persistor.deleteDB();
-	};
+		Persistor.deleteDB()
+	}
 </script>
 
 <h1>Welcome to Persisting Svelte State research project</h1>
